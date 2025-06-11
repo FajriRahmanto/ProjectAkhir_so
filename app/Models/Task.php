@@ -15,10 +15,13 @@ class Task extends Model
         'priority',
         'description',
         'user_id',
-        'status'
+        'status',
+        'completed_at'
+    ];    protected $casts = [
+        'due_date' => 'date',
+        'completed_at' => 'datetime',
+        'due_time' => 'datetime'
     ];
-
-    protected $dates = ['due_date'];
 
     public function user()
     {

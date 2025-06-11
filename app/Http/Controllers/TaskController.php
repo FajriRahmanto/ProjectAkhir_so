@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $tasks = Task::where('user_id', Auth::id())->orderBy('due_date')->get();
@@ -38,7 +43,11 @@ class TaskController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        $tasks = \App\Models\Task::where('user_id', $user->id)
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
+        $tasks = Task::where('user_id', $user->id)
             ->orderByDesc('priority')
             ->orderBy('due_date')
             ->get();
@@ -56,22 +65,23 @@ class TaskController extends Controller
     }
     public function markDone($id)
     {
-        $task = \App\Models\Task::findOrFail($id);
+        $task = Task::findOrFail($id);
         $task->status = 'done';
+        $task->completed_at = now();
         $task->save();
 
         return redirect()->route('dashboard')->with('success', 'Task marked as done!');
     }
     public function destroy($id)
     {
-        $task = \App\Models\Task::findOrFail($id);
+        $task = Task::findOrFail($id);
         $task->delete();
         return back()->with('success', 'Task deleted!');
     }
     public function history()
     {
         $user = auth()->user();
-        $tasks = \App\Models\Task::where('user_id', $user->id)
+        $tasks = Task::where('user_id', $user->id)
             ->where('status', 'done')
             ->orderByDesc('updated_at')
             ->get();

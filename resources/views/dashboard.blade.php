@@ -1,4 +1,4 @@
-@extends('layout')
+    @extends('layout')
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
@@ -106,8 +106,7 @@
                             @else
                             <span class="priority-badge priority-normal">Normal Priority</span>
                             @endif
-                        </td>                        <td>
-                            <div class="d-flex align-items-center">
+                        </td>                        <td>                            <div class="d-flex align-items-center">
                                 <i class="material-icons me-2" style="font-size:18px;color:#1976d2">event</i>
                                 <div>
                                     {{ \Carbon\Carbon::parse($task->due_date)->format('d/m/Y') }}
@@ -117,6 +116,11 @@
                                         {{ \Carbon\Carbon::parse($task->due_time)->format('H:i') }}
                                     </div>
                                     @endif
+                                    <div class="task-time"
+                                         data-due-date="{{ $task->due_date }}"
+                                         data-due-time="{{ $task->due_time ?? '23:59:59' }}"
+                                         style="font-size:0.85rem; color: #666;">
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -127,11 +131,13 @@
                             <span class="text-muted fst-italic">No description</span>
                             @endif
                         </td>
-                        <td>
-                            @if($task->status == 'done')
+                        <td>                            @if($task->status == 'done')
                             <span class="priority-badge priority-normal">
                                 <i class="material-icons" style="font-size:16px;vertical-align:text-bottom">check_circle</i>
                                 Done
+                                <div class="text-muted" style="font-size:0.8rem;">
+                                    {{ $task->completed_at ? $task->completed_at->format('d/m/Y H:i') : 'N/A' }}
+                                </div>
                             </span>
                             @else
                             <span class="priority-badge priority-medium">
@@ -182,4 +188,5 @@
 </div>
 <!-- Material Icons CDN -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="{{ asset('js/task-time.js') }}"></script>
 @endsection

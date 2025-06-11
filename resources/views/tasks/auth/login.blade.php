@@ -28,8 +28,7 @@
                         <label>Password</label>
                         <input type="password" name="password" class="form-control" required placeholder="Enter password">
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
-                    <p class="text-center mt-3">Don't have an account? <a href="{{ route('register') }}">Register</a></p>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>                    <p class="text-center mt-3">Don't have an account? <a href="{{ route('register') }}">Register</a></p>
                 </form>
             </div>
         </div>

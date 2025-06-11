@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login - Task Manager</title>
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
+    </script>
 </head>
 <body>
     <div class="auth-container">
@@ -70,14 +74,6 @@
                             Sign In
                         </button>
                     </div>
-
-                    @if (Route::has('password.request'))
-                        <div class="text-center">
-                            <a class="auth-link" href="{{ route('password.request') }}">
-                                Forgot your password?
-                            </a>
-                        </div>
-                    @endif
 
                     <div class="divider">
                         <span class="divider-text">New here?</span>

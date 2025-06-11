@@ -14,13 +14,9 @@ Route::get('/', function () {
 });
 
 // Authentication Routes
-Auth::routes();
+Auth::routes(['reset' => false]);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
-
-// Route untuk menampilkan data tasks (AJAX atau include di view)
+// Route untuk menampilkan dashboard dengan data tasks
 Route::get('/dashboard', [TaskController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index')->middleware('auth');
@@ -37,7 +33,3 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken();
     return redirect('/login');
 })->name('logout');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
