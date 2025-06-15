@@ -55,15 +55,18 @@
 
                     <div class="form-group">
                         <label class="form-label" for="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            class="form-control @error('password') is-invalid @enderror"
-                            placeholder="Enter your password"
-                            required
-                            autocomplete="current-password"
-                        >
+                        <div style="position: relative;">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                placeholder="Enter your password"
+                                required
+                                autocomplete="current-password"
+                            >
+                            <span id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; user-select: none; font-size: 0.9em; color: #6c757d;">Show</span>
+                        </div>
                         @error('password')
                             <span class="error-message">{{ $message }}</span>
                         @enderror
@@ -90,5 +93,20 @@
             <img src="{{ asset('images/boy.png') }}" alt="Task Manager Illustration" class="auth-illustration">
         </div>
     </div>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+
+        if (togglePassword && password) {
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the text
+                this.textContent = type === 'password' ? 'Show' : 'Hide';
+            });
+        }
+    </script>
 </body>
 </html>

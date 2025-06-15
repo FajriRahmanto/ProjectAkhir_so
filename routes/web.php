@@ -14,9 +14,9 @@ Route::get('/', function () {
 });
 
 // Authentication Routes
-Auth::routes(['reset' => false]);
+Auth::routes(['reset' => false, 'verify' => false]);
 
-// Route untuk menampilkan dashboard dengan data tasks
+// Dashboard route - harus bisa diakses setelah register
 Route::get('/dashboard', [TaskController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index')->middleware('auth');

@@ -44,7 +44,7 @@ class TaskController extends Controller
     {
         $user = Auth::user();
         if (!$user) {
-            return redirect()->route('login');
+            return redirect()->route('login')->with('error', 'Please login first.');
         }
 
         $tasks = Task::where('user_id', $user->id)

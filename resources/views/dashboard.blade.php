@@ -1,8 +1,9 @@
-    @extends('layout')
+@extends('layout')
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 <div class="dashboard-container">
+
     <!-- Welcome Card -->
     <div class="welcome-card d-flex align-items-center">
         <div class="user-avatar">

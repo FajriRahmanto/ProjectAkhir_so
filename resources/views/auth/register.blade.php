@@ -70,14 +70,17 @@
 
                     <div class="form-group">
                         <label class="form-label" for="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            class="form-control @error('password') is-invalid @enderror"
-                            placeholder="Create a password"
-                            required
-                        >
+                        <div style="position: relative;">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                placeholder="Create a password"
+                                required
+                            >
+                            <span id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; user-select: none; font-size: 0.9em; color: #6c757d;">Show</span>
+                        </div>
                         @error('password')
                             <span class="error-message">{{ $message }}</span>
                         @enderror
@@ -85,14 +88,17 @@
 
                     <div class="form-group">
                         <label class="form-label" for="password_confirmation">Confirm Password</label>
-                        <input
-                            type="password"
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            class="form-control"
-                            placeholder="Confirm your password"
-                            required
-                        >
+                        <div style="position: relative;">
+                            <input
+                                type="password"
+                                id="password_confirmation"
+                                name="password_confirmation"
+                                class="form-control"
+                                placeholder="Confirm your password"
+                                required
+                            >
+                            <span id="togglePasswordConfirmation" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; user-select: none; font-size: 0.9em; color: #6c757d;">Show</span>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -116,5 +122,28 @@
             <img src="{{ asset('images/boy.png') }}" alt="Task Manager Illustration" class="auth-illustration">
         </div>
     </div>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+        const togglePasswordConfirmation = document.getElementById('togglePasswordConfirmation');
+        const passwordConfirmation = document.getElementById('password_confirmation');
+
+        if (togglePassword && password) {
+            togglePassword.addEventListener('click', function () {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.textContent = type === 'password' ? 'Show' : 'Hide';
+            });
+        }
+
+        if (togglePasswordConfirmation && passwordConfirmation) {
+            togglePasswordConfirmation.addEventListener('click', function () {
+                const type = passwordConfirmation.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordConfirmation.setAttribute('type', type);
+                this.textContent = type === 'password' ? 'Show' : 'Hide';
+            });
+        }
+    </script>
 </body>
 </html>
